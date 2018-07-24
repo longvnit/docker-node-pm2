@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+    nodeapp:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: "node-pm2"
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./www/html:/var/www/html:rw
+        environment:
+            NODE_ENV: production
+            COMMON_VARIABLE: "true"
+            DOCUMENT_ROOT: /var/www/html
+            NODE_LOG: /var/www/html
+            NODE_PORT: 5000

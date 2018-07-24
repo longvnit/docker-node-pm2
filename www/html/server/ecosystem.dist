@@ -1,0 +1,34 @@
+{
+	"apps": [
+		{
+			"name"			: "API",
+			"script"		: "./main.js",
+			"exec_mode"		: "cluster",
+			"error_file"	: "/var/www/html/log/api.error.log",
+			"merge_logs"	: true,
+			"env" 			: {
+				"COMMON_VARIABLE": "true"
+			},
+			"env_production": {
+				"NODE_ENV": "production"
+			}
+		}
+	],
+	"deploy": {
+		"production": {
+			"user"			: "thanhnv",
+            "host"			: "gomoku.live",
+            "ref"			: "origin/dev",
+            "repo"			: "git@bitbucket.org:thanhnv85/caro.git",
+            "path"			: "/var/www/html",
+            "ssh_options"	: [
+                "StrictHostKeyChecking=no",
+                "PasswordAuthentication=no"
+            ],
+            "post-deploy"	: "docker exec -it <CONTAINER_ID> cd /var/www/html && sh init.sh",
+            "env"			: {
+                "NODE_ENV": "production"
+            }
+		}
+	}
+}
